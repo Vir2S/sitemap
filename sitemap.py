@@ -35,9 +35,9 @@ class Page:
 
     def __init__(self, site_url, path):
 
-        self.site_url = site_url
-        self.name = path
-        self.page_url = f'{site_url}/{path}'
+        self.site_url = site_url  # https://domain.com
+        self.path = path  # /path/to/page.html
+        self.page_url = f'{site_url}/{path}'  # https://domain.com/path/to/page.html
         self.links = []
         self.title = ''
         self.body = ''
@@ -67,3 +67,7 @@ class Page:
 
         if result:
             self.title = result[0]
+            print(f'Page {self.path} have a title {self.title}')
+
+        else:
+            print(f'Page {self.path} have no title')
