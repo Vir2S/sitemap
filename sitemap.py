@@ -9,3 +9,5 @@ class Page:
     def __str__(self):
         return f'Page {self.name} has {len(self.links)}. Visited: {self.is_visited}'
 
+    def get_page_links(self):
+        pass
