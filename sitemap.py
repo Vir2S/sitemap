@@ -31,13 +31,14 @@ class Manager:
 class Page:
 
     URL_PATTERN = re.compile(r'href="([%.\w/-]+)"')
+    TITLE_PATTERN = re.compile('<title>([\w\s-]+)</title>')
 
     def __init__(self, site_url, path):
 
-        self.links = []
         self.site_url = site_url
         self.name = path
         self.page_url = f'{site_url}/{path}'
+        self.links = []
         self.title = ''
         self.body = ''
         self.is_visited = False
@@ -59,3 +60,10 @@ class Page:
     def get_page_body(self):
 
         self.body = download_page_body(self.page_url)
+
+    def get_page_title(self):
+
+        result = re.findall(self.TITLE_PATTERN, self.body)
+
+        if result:
+            self.title = result[0]
