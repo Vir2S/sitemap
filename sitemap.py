@@ -1,6 +1,15 @@
 import re
 
 
+class Manager:
+
+    def __init__(self, site_url):
+        """
+        :param site_url: protocol and domain name (https://domain.com)
+        """
+        self.site_url = site_url
+
+
 class Page:
 
     URL_PATTERN = re.compile(r'href="([%.\w/-]+)"')
