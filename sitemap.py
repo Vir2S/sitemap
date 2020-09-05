@@ -35,12 +35,13 @@ class Page:
 
     def __init__(self, site_url, path):
 
-        self.site_url = site_url  # https://domain.com
-        self.path = path  # /path/to/page.html
+        self.__site_url = site_url  # https://domain.com
+        self.___path = path  # /path/to/page.html
+        self.__body = ''
+
         self.page_url = f'{site_url}/{path}'  # https://domain.com/path/to/page.html
         self.links = []
         self.title = ''
-        self.body = ''
         self.is_visited = False
 
     def __str__(self):
@@ -48,11 +49,11 @@ class Page:
 
     def __get_page_links(self):
 
-        if not self.body:
-            print(f'Body page {self.path} is empty. Will not process')
+        if not self.__body:
+            print(f'Body page {self.___path} is empty. Will not process')
             return
 
-        result = re.findall(self.URL_PATTERN, self.body)
+        result = re.findall(self.URL_PATTERN, self.__body)
 
         if not result:
             print(f'No links found on page {self.name}')
@@ -63,23 +64,23 @@ class Page:
 
     def __get_page_body(self):
 
-        self.body = download_page_body(self.page_url)
+        self.__body = download_page_body(self.page_url)
 
     def __get_page_title(self):
 
-        if not self.body:
-            print(f'Body page {self.path} is empty. Will not process')
+        if not self.__body:
+            print(f'Body page {self.___path} is empty. Will not process')
             return
 
-        result = re.findall(self.TITLE_PATTERN, self.body)
+        result = re.findall(self.TITLE_PATTERN, self.__body)
 
         if result:
             self.title = result[0]
-            print(f'Page {self.path} have a title {self.title}')
+            print(f'Page {self.___path} have a title {self.title}')
             return
 
         else:
-            print(f'Page {self.path} have no title')
+            print(f'Page {self.___path} have no title')
 
     def process(self):
 
