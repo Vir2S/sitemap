@@ -46,28 +46,43 @@ class Page:
     def __str__(self):
         return f'Page {self.name} has {len(self.links)}. Visited: {self.is_visited}'
 
-    def get_page_links(self):
+    def __get_page_links(self):
+
+        if not self.body:
+            print(f'Body page {self.path} is empty. Will not process')
+            return
 
         result = re.findall(self.URL_PATTERN, self.body)
 
         if not result:
-            print(f'No links found on the page {self.name}')
+            print(f'No links found on page {self.name}')
 
         else:
-            print(f'Found {len(result)} on the page {self.name}')
+            print(f'Found {len(result)} on page {self.name}')
             self.links = result
 
-    def get_page_body(self):
+    def __get_page_body(self):
 
         self.body = download_page_body(self.page_url)
 
-    def get_page_title(self):
+    def __get_page_title(self):
+
+        if not self.body:
+            print(f'Body page {self.path} is empty. Will not process')
+            return
 
         result = re.findall(self.TITLE_PATTERN, self.body)
 
         if result:
             self.title = result[0]
             print(f'Page {self.path} have a title {self.title}')
+            return
 
         else:
             print(f'Page {self.path} have no title')
+
+    def process(self):
+
+        self.__get_page_body()
+        self.__get_page_title()
+        self.__get_page_links()
