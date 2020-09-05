@@ -37,6 +37,7 @@ class Page:
         self.links = []
         self.site_url = site_url
         self.name = path
+        self.page_url = f'{site_url}/{path}'
         self.title = ''
         self.body = ''
         self.is_visited = False
@@ -56,4 +57,5 @@ class Page:
             self.links = result
 
     def get_page_body(self):
-        pass
+
+        self.body = download_page_body(self.page_url)
