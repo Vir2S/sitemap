@@ -3,7 +3,14 @@ import requests
 
 
 def download_page_body(url):
-    response = requests(url)
+
+    try:
+        response = requests(url)
+
+    except Exception as e:
+        print(f'Error {e}')
+        return ''
+
     return response.text
 
 
