@@ -1,4 +1,5 @@
 import re
+import urllib
 import requests
 
 
@@ -39,13 +40,13 @@ class Page:
         self.___path = path  # /path/to/page.html
         self.__body = ''
 
-        self.page_url = f'{site_url}/{path}'  # https://domain.com/path/to/page.html
+        self.page_url = urllib.parse.urljoin(site_url, path)  # https://domain.com/path/to/page.html
         self.links = []
         self.title = ''
         self.is_visited = False
 
     def __str__(self):
-        return f'Page {self.name} has {len(self.links)}. Visited: {self.is_visited}'
+        return f'Page {self.___path} has {len(self.links)} links. Visited: {self.is_visited}'
 
     def __get_page_links(self):
 
@@ -56,10 +57,10 @@ class Page:
         result = re.findall(self.URL_PATTERN, self.__body)
 
         if not result:
-            print(f'No links found on page {self.name}')
+            print(f'No links found on page {self.___path}')
 
         else:
-            print(f'Found {len(result)} on page {self.name}')
+            print(f'Found {len(result)} on page {self.___path}')
             self.links = result
 
     def __get_page_body(self):
@@ -76,14 +77,16 @@ class Page:
 
         if result:
             self.title = result[0]
-            print(f'Page {self.___path} have a title {self.title}')
+            print(f'Page {self.___path} has a title {self.title}')
             return
 
         else:
-            print(f'Page {self.___path} have no title')
+            print(f'Page {self.___path} has no title')
 
     def process(self):
 
         self.__get_page_body()
         self.__get_page_title()
         self.__get_page_links()
+
+
