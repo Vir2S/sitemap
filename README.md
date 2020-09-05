@@ -1,2 +1,2 @@
-# sutemap
+# sitemap
 Python sitemap generator
