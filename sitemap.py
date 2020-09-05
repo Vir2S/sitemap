@@ -1,6 +1,12 @@
+import re
+
+
 class Page:
 
+    URL_PATTERN = re.compile(r'href="([%.\w/-]+)"')
+
     def __init__(self, path):
+
         self.links = []
         self.name = path
         self.title = ''
@@ -11,4 +17,13 @@ class Page:
         return f'Page {self.name} has {len(self.links)}. Visited: {self.is_visited}'
 
     def get_page_links(self):
-        pass
+
+        result = re.findall(self.URL_PATTERN, self.body)
+
+        if not result:
+            print(f'No links found on the page {self.name}')
+
+        else:
+            print(f'Found {len(result)} on the page {self.name}')
+            self.links = result
+
