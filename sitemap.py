@@ -1,4 +1,10 @@
 import re
+import requests
+
+
+def download_page_body(url):
+    response = requests(url)
+    return response.text
 
 
 class Manager:
