@@ -1,9 +1,10 @@
 class Page:
 
-    def __init__(self, path, title):
+    def __init__(self, path):
         self.links = []
         self.name = path
-        self.title = title
+        self.title = ''
+        self.body = ''
         self.is_visited = False
 
     def __str__(self):
