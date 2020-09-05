@@ -9,6 +9,9 @@ class Manager:
         """
         self.site_url = site_url
 
+    def site_process(self):
+        pass
+
 
 class Page:
 
