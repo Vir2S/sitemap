@@ -91,9 +91,16 @@ class Page:
         self.__get_page_links()
 
 
+class Link:
+
+    def __init__(self, name, url):
+
+        self.name = name
+        self.url = url
+
+
 page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
 page1.process()
 
 with open('links.json', 'w') as f:
     json.dump(page1.links, f, indent=4)
-
