@@ -62,7 +62,7 @@ class Page:
 
         else:
             print(f'On page {self.___path} found {len(result)} links.')
-            self.links = [el[0] for el in result if not el[0].startswith('mailto')]
+            self.links = [Link(el[0]) for el in result if not el[0].startswith('mailto')]
 
     def __get_page_body(self):
 
@@ -93,14 +93,15 @@ class Page:
 
 class Link:
 
-    def __init__(self, name, url):
+    def __init__(self, url):
 
-        self.name = name
         self.url = url
 
 
 page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
 page1.process()
 
-with open('links.json', 'w') as f:
-    json.dump(page1.links, f, indent=4)
+print(page1.links)
+
+# with open('links.json', 'w') as f:
+#     json.dump(page1.links, f, indent=4)
