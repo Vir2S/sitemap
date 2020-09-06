@@ -6,7 +6,7 @@ import requests
 def download_page_body(url):
 
     try:
-        response = requests(url)
+        response = requests.get(url)
 
     except Exception as e:
         print(f'Error {e}')
@@ -31,7 +31,7 @@ class Manager:
 
 class Page:
 
-    URL_PATTERN = re.compile(r'href="([%.\w/-]+)"')
+    URL_PATTERN = re.compile(r'((\bhttp\b|\bftp\b|\bhttps|\bftps\b|)?(:\/\/)?[\w@:%,._\+\-~#=/]*\.[\w@:%,_\+\-.~#?&//=]*)')
     TITLE_PATTERN = re.compile('<title>([\w\s-]+)</title>')
 
     def __init__(self, site_url, path):
@@ -61,7 +61,7 @@ class Page:
 
         else:
             print(f'Found {len(result)} on page {self.___path}')
-            self.links = result
+            self.links = [el[0] for el in result]
 
     def __get_page_body(self):
 
@@ -90,3 +90,6 @@ class Page:
         self.__get_page_links()
 
 
+page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
+page1.process()
+print(page1.links)
