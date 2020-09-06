@@ -17,6 +17,11 @@ def download_page_body(url):
 
 
 class Manager:
+    def __init__(self):
+        pass
+
+
+class Task:
 
     def __init__(self, protocol, domain_name):
         """
@@ -102,6 +107,9 @@ page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
 page1.process()
 
 print(page1.links)
+
+for link in page1.links:
+    print(link.url)
 
 # with open('links.json', 'w') as f:
 #     json.dump(page1.links, f, indent=4)
