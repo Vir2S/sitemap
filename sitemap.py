@@ -20,6 +20,12 @@ class Manager:
     def __init__(self):
         pass
 
+    def add_site_to_be_parsed(self, site_root_url):
+        pass
+
+    def add_sites_to_be_parsed(self, *sites_root_urls):
+        pass
+
 
 class Page:
 
@@ -100,5 +106,14 @@ class Task:
     def site_process(self):
 
         site_root_url = f'{self.protocol}://{self.domain_name}'  # https://domain.com
+
         root_page = Page(site_root_url)
+        root_page.process()
+
+        root_page_links = root_page.links
+        print(root_page_links)
+
+
+#############################################################
+
 
