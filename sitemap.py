@@ -1,4 +1,5 @@
 import re
+import json
 import urllib
 import requests
 
@@ -31,7 +32,7 @@ class Manager:
 
 class Page:
 
-    URL_PATTERN = re.compile(r'((\bhttp\b|\bftp\b|\bhttps|\bftps\b|)?(:\/\/)?[\w@:%,._\+\-~#=/]*\.[\w@:%,_\+\-.~#?&//=]*)')
+    URL_PATTERN = re.compile(r'="((\bhttp\b|\bftp\b|\bhttps|\bftps\b|)?(:\/\/)?[\w@:%,._\+\-~#=/]*\.[\w@:%,_\+\-.~#?&//=]*)')
     TITLE_PATTERN = re.compile('<title>([\w\s-]+)</title>')
 
     def __init__(self, site_url, path):
@@ -60,7 +61,7 @@ class Page:
             print(f'No links found on page {self.___path}')
 
         else:
-            print(f'Found {len(result)} on page {self.___path}')
+            print(f'On page {self.___path} found {len(result)} links.')
             self.links = [el[0] for el in result]
 
     def __get_page_body(self):
@@ -92,4 +93,7 @@ class Page:
 
 page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
 page1.process()
-print(page1.links)
+
+with open('links.json', 'w') as f:
+    json.dump(page1.links, f, indent=4)
+
