@@ -62,7 +62,7 @@ class Page:
 
         else:
             print(f'On page {self.___path} found {len(result)} links.')
-            self.links = [el[0] for el in result]
+            self.links = [el[0] for el in result if not el[0].startswith('mailto')]
 
     def __get_page_body(self):
 
