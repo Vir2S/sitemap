@@ -21,26 +21,12 @@ class Manager:
         pass
 
 
-class Task:
-
-    def __init__(self, protocol, domain_name):
-        """
-        :param protocol: protocol (http or https)
-        :param domain_name: domain name (domain.com)
-        """
-        self.protocol = protocol
-        self.domain_name = domain_name
-
-    def site_process(self):
-        site_url = f'{self.protocol}://{self.domain_name}'  # https://domain.com
-
-
 class Page:
 
     URL_PATTERN = re.compile(r'="((\bhttp\b|\bftp\b|\bhttps|\bftps\b|)?(:\/\/)?[\w@:%,._\+\-~#=/]*\.[\w@:%,_\+\-.~#?&//=]*)')
     TITLE_PATTERN = re.compile('<title>([\w\s-]+)</title>')
 
-    def __init__(self, site_url, path):
+    def __init__(self, site_url, path=''):
 
         self.__site_url = site_url  # https://domain.com
         self.___path = path  # /path/to/page.html
@@ -97,19 +83,22 @@ class Page:
 
 
 class Link:
-
     def __init__(self, url):
-
         self.url = url
 
 
-page1 = Page('https://pymentor.github.io/', '/pymentor-landing-page/dist/')
-page1.process()
+class Task:
 
-print(page1.links)
+    def __init__(self, protocol, domain_name):
+        """
+        :param protocol: protocol (http or https)
+        :param domain_name: domain name (domain.com)
+        """
+        self.protocol = protocol
+        self.domain_name = domain_name
 
-for link in page1.links:
-    print(link.url)
+    def site_process(self):
 
-# with open('links.json', 'w') as f:
-#     json.dump(page1.links, f, indent=4)
+        site_root_url = f'{self.protocol}://{self.domain_name}'  # https://domain.com
+        root_page = Page(site_root_url)
+
