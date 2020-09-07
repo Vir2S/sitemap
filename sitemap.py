@@ -117,3 +117,10 @@ class Task:
 #############################################################
 
 
+# manager = Manager()
+# manager.add_site_to_be_parsed('https://dev.by/')
+# manager.add_site_to_be_parsed('https://tut.by/')
+# manager.add_sites_to_be_parsed('https://tut.by/', 'https://dev.by/')
+
+task = Task('https', 'dev.by')
+task.site_process()
