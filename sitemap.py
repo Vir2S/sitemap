@@ -107,7 +107,10 @@ class Link:
             if self.url.endswith(ext):
                 return False
 
-            return True
+        if '/' in self.url:
+            return False
+
+        return True
 
     def should_follow(self):
 
