@@ -138,12 +138,20 @@ class Task:
 
         self.site_url = site_url
 
+        self.sitemap = {
+            site_url: {}
+        }
+
     def site_process(self):
 
         root_page = Page(self.site_url)  # https://domain.com
         root_page.process()
 
         root_page_links = root_page.links
+
+        for link in root_page_links:
+            self.sitemap[link] = {}
+
         root_page_links_to_be_followed = root_page.get_links_to_be_followed()
 
 
