@@ -98,6 +98,17 @@ class Link:
         self.url = url
         self.is_followed = False
 
+    def __is_page(self):
+
+        # Page is url ends with .html or without extension
+
+        for ext in ('.css', 'js', '.png', '.svg', '.jpg', '.jpeg', '.gif', '.pdf'):
+
+            if self.url.endswith(ext):
+                return False
+
+            return True
+
     def should_follow(self):
 
         # Which links do we need to follow:
@@ -106,6 +117,9 @@ class Link:
 
         if self.is_followed:
             return False
+
+        if 'dev.by/' in self.url and self.url.endswith('.html'):
+            return True
 
 
 class Task:
