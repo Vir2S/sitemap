@@ -118,11 +118,8 @@ class Link:
         # Page should not be visited
         # Links with *.domain.com, domain.com which ends with .html or without any extension
 
-        if self.is_followed:
+        if self.is_followed or not self.__is_page():
             return False
-
-        if 'dev.by/' in self.url and self.url.endswith('.html'):
-            return True
 
 
 class Task:
