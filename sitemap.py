@@ -112,7 +112,7 @@ class Link:
 
         return True
 
-    def __is_internal(self):
+    def __is_internal_page(self):
 
         return True if 'dev.by' in self.url else False
 
