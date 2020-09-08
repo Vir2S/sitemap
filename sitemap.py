@@ -32,33 +32,34 @@ class Page:
     URL_PATTERN = re.compile(r'="((\bhttp\b|\bftp\b|\bhttps|\bftps\b|)?(:\/\/)?[\w@:%,._\+\-~#=/]*\.[\w@:%,_\+\-.~#?&//=]*)')
     TITLE_PATTERN = re.compile('<title>([\w\s-]+)</title>')
 
-    def __init__(self, site_url, path=''):
+    def __init__(self, page_url):
 
-        self.__site_url = site_url  # https://domain.com
-        self.___path = path  # /path/to/page.html
+        # self.__site_url = site_url  # https://domain.com
+        # self.___path = path  # /path/to/page.html
         self.__body = ''
 
-        self.page_url = urllib.parse.urljoin(site_url, path)  # https://domain.com/path/to/page.html
+        # self.page_url = urllib.parse.urljoin(site_url, path)  # https://domain.com/path/to/page.html
+        self.page_url = page_url
         self.links = []
         self.title = ''
         self.is_visited = False
 
     def __str__(self):
-        return f'Page {self.___path} has {len(self.links)} links. Visited: {self.is_visited}'
+        return f'Page {self.page_url} has {len(self.links)} links. Visited: {self.is_visited}'
 
     def __get_page_links(self):
 
         if not self.__body:
-            print(f'Body page {self.___path} is empty. Will not process')
+            print(f'Body page {self.page_url} is empty. Will not process')
             return
 
         result = re.findall(self.URL_PATTERN, self.__body)
 
         if not result:
-            print(f'No links found on page {self.___path}')
+            print(f'No links found on page {self.page_url}')
 
         else:
-            print(f'On page {self.___path} found {len(result)} links.')
+            print(f'On page {self.page_url} found {len(result)} links.')
             self.links = [Link(el[0]) for el in result if not el[0].startswith('mailto')]
 
     def __get_page_body(self):
@@ -68,18 +69,18 @@ class Page:
     def __get_page_title(self):
 
         if not self.__body:
-            print(f'Body page {self.___path} is empty. Will not process')
+            print(f'Body page {self.page_url} is empty. Will not process')
             return
 
         result = re.findall(self.TITLE_PATTERN, self.__body)
 
         if result:
             self.title = result[0]
-            print(f'Page {self.___path} has a title {self.title}')
+            print(f'Page {self.page_url} has a title {self.title}')
             return
 
         else:
-            print(f'Page {self.___path} has no title')
+            print(f'Page {self.page_url} has no title')
 
     def process(self):
 
@@ -157,7 +158,7 @@ class Task:
         root_page_links_urls_to_be_followed = set(
             link.url for link in root_page_links_to_be_followed
         )  # Filtering duplicates
-        print(root_page_links_urls_to_be_followed)
+        print(f'Unique links founded: {len(root_page_links_urls_to_be_followed)}\n{root_page_links_urls_to_be_followed}')
 
 
 #############################################################
