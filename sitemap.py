@@ -37,9 +37,9 @@ class Page:
         self.__body = ''
 
         self.page_url = page_url
-        self.links = []
-        self.title = ''
         self.is_visited = False
+        self.links = {}
+        self.title = ''
 
     def __str__(self):
         return f'Page {self.page_url} has {len(self.links)} links. Visited: {self.is_visited}'
@@ -57,7 +57,13 @@ class Page:
 
         else:
             print(f'On page {self.page_url} found {len(result)} links.')
-            self.links = [Link(el[0]) for el in result if not el[0].startswith('mailto')]
+
+            for link_group in result:
+
+                link_url = link_group[0]
+
+                if link_url not in self.links and not link_url.startswith('mailto'):
+                    self.links[link_url] = Link(link_url)
 
     def __get_page_body(self):
 
