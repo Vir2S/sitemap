@@ -98,6 +98,7 @@ class Link:
 
         self.url = url
         self.is_followed = False
+        self.__domain_name = f'{url.split("//")[1].split("/")[0]}'
 
     def __is_page(self):
 
@@ -114,7 +115,7 @@ class Link:
         return True
 
     def __is_internal_page(self):
-        return True if 'dev.by' in self.url else False
+        return True if self.__domain_name in self.url else False
 
     def should_follow(self):
 
