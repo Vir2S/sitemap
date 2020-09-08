@@ -91,9 +91,6 @@ class Page:
         self.__get_page_title()
         self.__get_page_links()
 
-    def get_links_urls(self):
-        return tuple(link.url for link in self.links)
-
     def get_links_to_be_followed(self):
         return set(link for link in self.links if link.should_follow())
 
