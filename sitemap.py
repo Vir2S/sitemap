@@ -125,6 +125,11 @@ class Link:
         if self.is_followed or not self.__is_page():
             return False
 
+        if not self.__is_internal_page():
+            return False
+
+        return True
+
 
 class Task:
 
