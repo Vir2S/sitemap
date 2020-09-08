@@ -107,13 +107,12 @@ class Link:
             if self.url.endswith(ext):
                 return False
 
-        if '/' in self.url:
+        if '/' not in self.url:
             return False
 
         return True
 
     def __is_internal_page(self):
-
         return True if 'dev.by' in self.url else False
 
     def should_follow(self):
@@ -147,12 +146,18 @@ class Task:
 
         root_page = Page(site_root_url)
         root_page.process()
-
         root_page_links = root_page.links
 
         root_page_links_urls = root_page.get_links_urls()
-
         print(root_page_links_urls)
+
+        root_page_links_to_be_followed = [link for link in root_page_links if link.should_follow()]
+        # print(root_page_links_to_be_followed)
+
+        root_page_links_urls_to_be_followed = set(
+            link.url for link in root_page_links_to_be_followed
+        )  # Filtering duplicates
+        print(root_page_links_urls_to_be_followed)
 
 
 #############################################################
