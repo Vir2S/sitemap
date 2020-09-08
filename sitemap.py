@@ -92,8 +92,20 @@ class Page:
 
 
 class Link:
+
     def __init__(self, url):
+
         self.url = url
+        self.is_followed = False
+
+    def should_follow(self):
+
+        # Which links do we need to follow:
+        # Page should not be visited
+        # Links with *.domain.com, domain.com which ends with .html or without any extension
+
+        if self.is_followed:
+            return False
 
 
 class Task:
