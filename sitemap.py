@@ -88,7 +88,7 @@ class Page:
         self.__get_page_links()
 
     def get_links_urls(self):
-        return (link.url for link in self.links)
+        return tuple(link.url for link in self.links)
 
 
 class Link:
