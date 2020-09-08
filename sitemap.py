@@ -87,6 +87,9 @@ class Page:
         self.__get_page_title()
         self.__get_page_links()
 
+    def get_links_urls(self):
+        return (link.url for link in self.links)
+
 
 class Link:
     def __init__(self, url):
@@ -111,7 +114,10 @@ class Task:
         root_page.process()
 
         root_page_links = root_page.links
-        print(root_page_links)
+
+        root_page_links_urls = root_page.get_links_urls()
+
+        print(root_page_links_urls)
 
 
 #############################################################
