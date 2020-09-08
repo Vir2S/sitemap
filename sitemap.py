@@ -88,6 +88,9 @@ class Page:
     def get_links_urls(self):
         return tuple(link.url for link in self.links)
 
+    def get_links_to_be_followed(self):
+        return set(link for link in self.links if link.should_follow())
+
 
 class Link:
 
@@ -138,18 +141,9 @@ class Task:
 
         root_page = Page(self.site_url)  # https://domain.com
         root_page.process()
+
         root_page_links = root_page.links
-
-        root_page_links_urls = root_page.get_links_urls()
-        print(root_page_links_urls)
-
-        root_page_links_to_be_followed = [link for link in root_page_links if link.should_follow()]
-        # print(root_page_links_to_be_followed)
-
-        root_page_links_urls_to_be_followed = set(
-            link.url for link in root_page_links_to_be_followed
-        )  # Filtering duplicates
-        print(f'Unique links founded: {len(root_page_links_urls_to_be_followed)}\n{root_page_links_urls_to_be_followed}')
+        root_page_links_to_be_followed = root_page.get_links_to_be_followed()
 
 
 #############################################################
@@ -160,5 +154,5 @@ class Task:
 # manager.add_site_to_be_parsed('https://tut.by/')
 # manager.add_sites_to_be_parsed('https://tut.by/', 'https://dev.by/')
 
-task = Task('https', 'dev.by')
+task = Task('https://dev.by')
 task.site_process()
