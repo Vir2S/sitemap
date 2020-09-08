@@ -114,9 +114,6 @@ class Link:
 
     def __is_internal(self):
 
-        if 'dev.by' not in self.page:
-            return False
-
         return True if 'dev.by' in self.url else False
 
     def should_follow(self):
