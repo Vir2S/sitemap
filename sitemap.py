@@ -34,11 +34,8 @@ class Page:
 
     def __init__(self, page_url):
 
-        # self.__site_url = site_url  # https://domain.com
-        # self.___path = path  # /path/to/page.html
         self.__body = ''
 
-        # self.page_url = urllib.parse.urljoin(site_url, path)  # https://domain.com/path/to/page.html
         self.page_url = page_url
         self.links = []
         self.title = ''
@@ -133,19 +130,13 @@ class Link:
 
 class Task:
 
-    def __init__(self, protocol, domain_name):
-        """
-        :param protocol: protocol (http or https)
-        :param domain_name: domain name (domain.com)
-        """
-        self.protocol = protocol
-        self.domain_name = domain_name
+    def __init__(self, site_url):
+
+        self.site_url = site_url
 
     def site_process(self):
 
-        site_root_url = f'{self.protocol}://{self.domain_name}'  # https://domain.com
-
-        root_page = Page(site_root_url)
+        root_page = Page(self.site_url)  # https://domain.com
         root_page.process()
         root_page_links = root_page.links
 
